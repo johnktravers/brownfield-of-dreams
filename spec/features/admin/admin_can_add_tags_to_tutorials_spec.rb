@@ -11,13 +11,13 @@ describe 'An admin user can add tags to tutorials' do
     visit "/admin/dashboard"
 
     within(first(".admin-tutorial-card")) do
-      click_on 'Edit'
+      click_link 'Edit'
     end
 
     expect(current_path).to eq(edit_admin_tutorial_path(tutorial))
 
     fill_in'tutorial[tag_list]', with: "Ruby"
-    click_on "Update Tags"
+    click_button "Update Tags"
     visit root_path
 
     within(".categories") do
@@ -25,7 +25,7 @@ describe 'An admin user can add tags to tutorials' do
     end
 
     within(".categories") do
-      click_on "Ruby"
+      click_link "Ruby"
     end
 
     expect(current_path).to eq("/tags/Ruby")

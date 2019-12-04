@@ -23,7 +23,7 @@ describe "As an Admin." do
     fill_in "video[description]", with: "Over, under, around and through, Meet Mr. Bunny Rabbit, pull and through."
     fill_in "video[video_id]", with: "J7ikFUlkP_k"
 
-    click_on "Save"
+    click_button "Save"
 
     tutorial = Tutorial.last
     video = Video.last

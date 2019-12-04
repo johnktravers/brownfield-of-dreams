@@ -10,11 +10,11 @@ describe 'vister can create an account', :js do
 
     visit '/'
 
-    click_on 'Sign In'
+    click_link 'Sign In'
 
     expect(current_path).to eq(login_path)
 
-    click_on 'Sign up now.'
+    click_link 'Sign up now.'
 
     expect(current_path).to eq(new_user_path)
 
@@ -24,7 +24,7 @@ describe 'vister can create an account', :js do
     fill_in 'user[password]', with: password
     fill_in 'user[password_confirmation]', with: password
 
-    click_on'Create Account'
+    click_button 'Create Account'
 
     expect(current_path).to eq(dashboard_path)
 

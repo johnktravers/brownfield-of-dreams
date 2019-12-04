@@ -11,7 +11,7 @@ describe 'A registered user' do
     visit tutorial_path(tutorial)
 
     expect {
-      click_on 'Bookmark'
+      click_button 'Bookmark'
     }.to change { UserVideo.count }.by(1)
 
     expect(page).to have_content("Bookmark added to your dashboard")
@@ -26,9 +26,9 @@ describe 'A registered user' do
 
     visit tutorial_path(tutorial)
 
-    click_on 'Bookmark'
+    click_button 'Bookmark'
     expect(page).to have_content("Bookmark added to your dashboard")
-    click_on 'Bookmark'
+    click_button 'Bookmark'
     expect(page).to have_content("Already in your bookmarks")
   end
 end
