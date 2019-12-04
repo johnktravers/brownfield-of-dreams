@@ -15,7 +15,7 @@ class Admin::TutorialsController < Admin::BaseController
       redirect_to tutorial_path(tutorial.id),
        success: 'Tutorial was successfully created'
     else
-      binding.pry
+      #Add Sad Path
     end
   end
 
