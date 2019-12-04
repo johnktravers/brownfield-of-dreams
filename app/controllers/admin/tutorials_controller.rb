@@ -19,7 +19,12 @@ class Admin::TutorialsController < Admin::BaseController
   end
 
   private
+
   def tutorial_params
-    params.require(:tutorial).permit(:tag_list)
+    params.require(:tutorial).permit(:tag_list, :title, :description, :thumbnail)
+  end
+
+  def video_params
+    params.require(:video).permit(:title, :description, :video_id)
   end
 end
