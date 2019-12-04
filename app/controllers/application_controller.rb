@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
   def four_oh_four
     raise ActionController::RoutingError.new('Not Found')
   end
+
+  def generate_flash(resource)
+    resource.errors.messages.each do |validation, message|
+      flash[validation] = "#{validation}: #{message}"
+    end
+  end
 end
