@@ -5,7 +5,7 @@ RSpec.describe 'User show page', type: :feature do
     @users = [create(:user), create(:admin)]
   end
 
-  it 'can see account details' do
+  it 'can see account details', :vcr do
     @users.each do |user|
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
