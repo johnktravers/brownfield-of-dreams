@@ -8,7 +8,7 @@ class Admin::TutorialsController < Admin::BaseController
   end
 
   def create
-    @tutorial = Tutorial.create(tutorial_params)
+    @tutorial = Tutorial.new(new_tutorial_params)
 
     if @tutorial.save
       redirect_to tutorial_path(@tutorial.id),
@@ -21,7 +21,7 @@ class Admin::TutorialsController < Admin::BaseController
 
   def update
     tutorial = Tutorial.find(params[:id])
-    if tutorial.update(tutorial_params)
+    if tutorial.update(update_tutorial_params)
       flash[:success] = "#{tutorial.title} tagged!"
     end
     redirect_to edit_admin_tutorial_path(tutorial)
@@ -29,7 +29,11 @@ class Admin::TutorialsController < Admin::BaseController
 
   private
 
-  def tutorial_params
-    params.require(:tutorial).permit(:tag_list, :title, :description, :thumbnail)
+  def update_tutorial_params
+    params.require(:tutorial).permit(:tag_list)
+  end
+
+  def new_tutorial_params
+    params.require(:tutorial).permit(:title, :description, :thumbnail)
   end
 end

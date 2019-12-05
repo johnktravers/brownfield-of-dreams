@@ -29,5 +29,8 @@ module PersonalProject
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Autoload subdirectory of POROS in the models directory
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'poros')]
   end
 end
