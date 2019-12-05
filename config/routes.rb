@@ -41,4 +41,7 @@ Rails.application.routes.draw do
 
   resources :users,       only: [:new, :create, :update, :edit]
   resources :user_videos, only: [:create, :destroy]
+
+  get '/auth/github',          as: 'connect_github'
+  get '/auth/github/callback', to: 'github_connections#create'
 end
