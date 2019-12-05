@@ -2,6 +2,10 @@
   <h1> <%= current_user.first_name %>'s Dashboard </h1>
 
   <%= button_to 'Log Out', logout_path, method: :delete, class: "btn btn-primary mb1 bg-teal" %>
+  <% unless github_connection %>
+    <%= link_to 'Connect to GitHub', connect_github_path, class: 'btn btn-primary bg-teal' %>
+  <% end %>
+
   <h3>Account Details</h3>
   <ul>
     <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
@@ -11,12 +15,16 @@
     <h1>Bookmarked Segments</h1>
   </article>
 
-  <article class="github-repos">
-    <h1>GitHub Repositories</h1>
-    <ul>
-      <% @github_facade.repos.each do |repo| %>
+  <% if github_connection %>
+    <hr>
+    <article class="github-repos">
+      <h1>GitHub Repositories</h1>
+      <ul>
+        <% @github_facade.repos.each do |repo| %>
         <li><%= link_to repo.name, repo.url %></li>
-      <% end %>
-    </ul>
-  </article>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+
 </section>
