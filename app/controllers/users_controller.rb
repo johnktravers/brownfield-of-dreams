@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def show
-    @github_facade = GithubFacade.new(current_user)
+    if current_user.token
+      @github_facade = GithubFacade.new(current_user)
+      binding.pry
+    end
   end
 
   def new

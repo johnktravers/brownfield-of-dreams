@@ -14,11 +14,13 @@
   </article>
 
   <article class="github-repos">
-    <h1>GitHub Repositories</h1>
-    <ul>
-      <% @github_facade.repos.each do |repo| %>
-        <li><%= link_to repo.name, repo.url %></li>
-      <% end %>
-    </ul>
+    <% if @github_facade %>
+        <h1>GitHub Repositories</h1>
+        <ul>
+          <% @github_facade.repos.each do |repo| %>
+            <li><%= link_to repo.name, repo.url %></li>
+          <% end %>
+        </ul>
+    <% end %>
   </article>
 </section>
