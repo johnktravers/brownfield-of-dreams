@@ -13,6 +13,11 @@ class GithubService
     parse_data(response)
   end
 
+  def get_user_followings
+    response = fetch_data('/user/following')
+    parse_data(response)
+  end
+
 
   private
 
