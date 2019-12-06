@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @github_facade = GithubFacade.new(current_user)
+    @github_facade = GithubFacade.new(current_user) if github_connection
   end
 
   def new
