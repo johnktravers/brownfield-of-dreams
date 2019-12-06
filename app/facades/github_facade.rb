@@ -24,7 +24,7 @@ class GithubFacade
 
   def followings
     @raw_followings_data ||= service.get_user_followings
-    binding.pry
+
     @raw_followings_data.map do |following_data|
       Following.new(following_data)
     end
