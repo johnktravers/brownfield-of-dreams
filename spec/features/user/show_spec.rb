@@ -33,7 +33,7 @@ RSpec.describe 'User show page', type: :feature do
           'B2_mid_mod_1908'
         ]
 
-        within '.github-repos' do
+        within '.github' do
           repo_names.each do |repo_name|
             expect(page).to have_selector(
               "a[href='https://github.com/johnktravers/#{repo_name}']",
