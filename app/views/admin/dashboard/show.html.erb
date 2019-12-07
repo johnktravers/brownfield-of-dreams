@@ -13,11 +13,13 @@
   <% @facade.tutorials.each do |tutorial| %>
     <tr class="admin-tutorial-card">
       <td><%= link_to tutorial.title, tutorial_path(tutorial) %></td>
-      <td>
-        <%= link_to "Edit", edit_admin_tutorial_path(tutorial) %> |
-        <%= link_to 'Destroy', tutorial_path(tutorial),
-                               method: :delete,
-                               data: { confirm: 'Are you sure?' } %>
+      <td style="display: flex;">
+        <%= link_to "Edit", edit_admin_tutorial_path(tutorial),
+                            class: 'btn' %> |
+        <%= button_to 'Destroy', admin_tutorial_path(tutorial),
+                                 method: :delete,
+                                 data: { confirm: 'Are you sure?' },
+                                 class: 'btn' %>
       </td>
     </tr>
   <% end %>
