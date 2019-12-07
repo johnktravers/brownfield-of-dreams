@@ -1,0 +1,25 @@
+<hr>
+<article class="github">
+  <h1>GitHub</h1>
+
+  <h3>Repositories</h3>
+  <ul>
+    <% github_facade.repos.each do |repo| %>
+      <li><%= link_to repo.name, repo.url %></li>
+    <% end %>
+  </ul>
+
+  <h3>Followers</h3>
+  <ul>
+    <% github_facade.followers.each do |follower| %>
+      <li><%= link_to follower.username, follower.url %></li>
+    <% end %>
+  </ul>
+
+  <h3>Following</h3>
+  <ul>
+    <% github_facade.followings.each do |following| %>
+      <li><%= link_to following.username, following.url %></li>
+    <% end %>
+  </ul>
+</article>

@@ -23,7 +23,7 @@ describe 'User' do
     end
   end
 
-  it 'can log out', :js do
+  it 'can log out' do
     VCR.use_cassette('github_user_repos') do
       user = create(:user)
 
@@ -42,7 +42,7 @@ describe 'User' do
 
       expect(current_path).to eq(root_path)
       expect(page).to_not have_content(user.first_name)
-      expect(page).to have_content('SIGN IN')
+      expect(page).to have_content('Sign In')
     end
   end
 
