@@ -2,7 +2,8 @@
   <h1> <%= current_user.first_name %>'s Dashboard </h1>
 
   <%= button_to 'Log Out', logout_path, method: :delete, class: "btn btn-primary mb1 bg-teal" %>
-  <% unless github_connection %>
+
+  <% if !github_connection && !current_admin? %>
     <%= link_to 'Connect to GitHub', connect_github_path, class: 'btn btn-primary bg-teal' %>
   <% end %>
 
