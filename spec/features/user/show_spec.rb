@@ -5,7 +5,7 @@ RSpec.describe 'User show page', type: :feature do
     @user = create(:github_user)
   end
 
-  it "Has a link to authorize Github account" do
+  it "Has a link to authorize Github account if default user" do
     user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -14,6 +14,17 @@ RSpec.describe 'User show page', type: :feature do
     expect(page).to have_link("Connect to GitHub")
     expect(page).to_not have_css(".github")
   end
+
+  it "Doesn't have a link to authorize Github account if admin user" do
+    admin = create(:admin)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit dashboard_path
+
+    expect(page).to_not have_link("Connect to GitHub")
+    expect(page).to_not have_css(".github")
+  end
+
 
   it 'can see account details' do
     VCR.use_cassette('github_user_data') do
