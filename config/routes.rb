@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get '/dashboard',                          to: 'dashboard#show'
 
     resources :videos,    only: [:edit, :update, :destroy]
-    resources :tutorials, only: [:create, :edit, :update, :destroy, :new] do
+    resources :tutorials, except: [:index, :show] do
       resources :videos,  only: [:create]
     end
   end
