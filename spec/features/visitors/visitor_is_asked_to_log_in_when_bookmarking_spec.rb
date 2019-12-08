@@ -9,6 +9,7 @@ describe 'visitor visits video show page' do
 
     click_link 'Bookmark'
 
-    expect(current_path).to eq(login_path)
+    expect(page).to have_css("a[aria-label='You must sign in first']")
+    expect(current_path).to eq(tutorial_path(tutorial))
   end
 end
