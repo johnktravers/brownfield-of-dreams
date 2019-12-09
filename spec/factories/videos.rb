@@ -4,6 +4,7 @@ FactoryBot.define do
     description { Faker::SiliconValley.motto }
     thumbnail { 'http://cdn3-www.dogtime.com/assets/uploads/2011/03/puppy-development-460x306.jpg' }
     video_id { Faker::Crypto.md5 }
+    position { 0 }
     tutorial
   end
 end
