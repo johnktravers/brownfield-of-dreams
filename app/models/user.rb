@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :user_videos
   has_many :videos, through: :user_videos
+  has_many :tutorials, through: :videos
 
   validates :email, uniqueness: true, presence: true
   validates_presence_of :first_name, :last_name
@@ -15,24 +16,14 @@ class User < ApplicationRecord
     )
   end
 
-  def bookmarks
-    results = ActiveRecord::Base.connection.execute(
-      "SELECT tutorials.title as tutorial_title, tutorials.id as tutorial_id, videos.title as video_title, videos.position as video_position
+  def bookmark_data
+    ActiveRecord::Base.connection.execute(
+      "SELECT tutorials.title as tutorial_title, tutorials.id as tutorial_id, videos.title as video_title, videos.position as video_position, videos.id AS video_id
         FROM videos
         INNER JOIN tutorials ON videos.tutorial_id = tutorials.id
         INNER JOIN user_videos ON user_videos.video_id = videos.id
-        WHERE user_videos.user_id = 2
-        ORDER BY tutorial_id, videos.id"
+        WHERE user_videos.user_id = #{id}
+        ORDER BY tutorial_id, videos.position"
     )
-
-    bookmarks = []
-
-    tutorials = results.map do |result|
-      [result['tutorial_id'], result['']]
-    end
-
-    tutorials.each do |result|
-      Bookmark.new(result)
-    end
   end
 end
