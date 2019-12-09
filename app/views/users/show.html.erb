@@ -13,7 +13,20 @@
     <li> <%= current_user.email%> </li>
   </ul>
   <article>
-    <h1>Bookmarked Segments</h1>
+    <h1>Bookmarked Tutorials</h1>
+
+    <% @bookmark_facade.bookmarks.each do |bookmark| %>
+    <article id="tutorial-<%= bookmark.tutorial_id %>">
+
+        <h3><%= bookmark.tutorial_title %></h3>
+        <ul>
+          <% bookmark.videos.each do |video| %>
+            <li class="video"><%= link_to video.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{video.id}" %></li>
+          <% end %>
+        </ul>
+    </article>
+    <% end %>
+
   </article>
 
   <%= render partial: "github", locals: { github_facade: @github_facade } if github_connection %>

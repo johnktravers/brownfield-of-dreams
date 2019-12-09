@@ -3,7 +3,7 @@ prework_tutorial_data = {
   'description' => 'Videos for prework.',
   'thumbnail' => 'https://i.ytimg.com/vi/qMkRHW9zE1c/hqdefault.jpg',
   'playlist_id' => 'PL1Y67f0xPzdN6C-LPuTQ5yzlBoz2joWa5',
-  'classroom' => false,
+  'classroom' => true,
 }
 prework_tutorial = Tutorial.create! prework_tutorial_data
 
@@ -116,4 +116,12 @@ m3_tutorial.videos.create!({
 })
 
 User.create!(email: 'admin@example.com', first_name: 'Bossy', last_name: 'McBosserton', password: 'password', role: :admin)
-User.create!(email: 'user@example.com', first_name: 'User', last_name: 'McUserton', password: 'password')
+user = User.create!(email: 'user@example.com', first_name: 'User', last_name: 'McUserton', password: 'password')
+
+UserVideo.create!(user_id: user.id, video_id: 2)
+UserVideo.create!(user_id: user.id, video_id: 4)
+UserVideo.create!(user_id: user.id, video_id: 5)
+UserVideo.create!(user_id: user.id, video_id: 7)
+UserVideo.create!(user_id: user.id, video_id: 8)
+UserVideo.create!(user_id: user.id, video_id: 10)
+UserVideo.create!(user_id: user.id, video_id: 11)

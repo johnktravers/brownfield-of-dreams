@@ -25,8 +25,7 @@ RSpec.describe 'User show page', type: :feature do
     expect(page).to_not have_css(".github")
   end
 
-
-  it 'can see account details' do
+  it "can see account details" do
     VCR.use_cassette('github_user_data') do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -100,6 +99,37 @@ RSpec.describe 'User show page', type: :feature do
             "a[href='#{following['url']}']",
             text: following['username']
           )
+      end
+    end
+  end
+
+  it "Can see my bookmarked videos, sorted by tutorial and video position" do
+    VCR.use_cassette('github_user_data') do
+      tutorial_1 = create(:tutorial)
+      tutorial_2 = create(:tutorial)
+
+      create_list(:video, 3, tutorial: tutorial_1)
+      create_list(:video, 4, tutorial: tutorial_2)
+
+      Video.all.each do |video|
+        create(:user_video, user: @user, video: video )
+      end
+
+      create_list(:user_video, 3)
+      create_list(:video, 2, tutorial: tutorial_1)
+      create_list(:video, 2, tutorial: tutorial_2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit dashboard_path
+
+      within "#tutorial-#{tutorial_1.id}" do
+        expect(page).to have_css(".video", count: 3)
+        expect(page).to have_link(Video.first.title)
+      end
+
+      within "#tutorial-#{tutorial_2.id}" do
+        expect(page).to have_css(".video", count: 4)
       end
     end
   end
