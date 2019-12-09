@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'As a visitor' do
-  it 'sends me to the login page if I try to bookmark a video' do
+  it 'asks me to log in if I try to bookmark a video' do
     tutorial = create(:tutorial)
     create(:video, tutorial_id: tutorial.id)
 
@@ -9,8 +9,8 @@ RSpec.describe 'As a visitor' do
 
     click_link 'Bookmark'
 
-    expect(current_path).to eq(login_path)
-    # expect(page).to have_content('Please login to bookmark a video')
+    expect(page).to have_css("a[aria-label='You must sign in first']")
+    expect(current_path).to eq(tutorial_path(tutorial))
   end
 
   it 'cannot see classroom content tutorials on home page' do
