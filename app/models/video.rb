@@ -7,5 +7,9 @@ class Video < ApplicationRecord
 
   validates_presence_of :title,
                   :description,
-                    :thumbnail
+                    :thumbnail,
+                     :position
+
+  validates_numericality_of :position, only_integer: true
+
 end
