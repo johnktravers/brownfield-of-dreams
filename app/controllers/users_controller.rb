@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     @github_facade = GithubFacade.new(current_user) if github_connection
-    @bookmark_facade = BookmarkFacade.new(current_user)
+    @bookmark_facade = BookmarkFacade.new(current_user) if current_user.user_videos.any?
   end
 
   def new
