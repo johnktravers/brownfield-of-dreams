@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   get '/dashboard',                            to: 'users#show'
   get '/activate',                             to: 'users#update'
+  post '/add_friend/:friend_id',                           to: 'friendship#create'
   get '/about',                                to: 'about#show'
   get '/get_started',                          to: 'get_started#show'
 

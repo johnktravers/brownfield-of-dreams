@@ -5,11 +5,16 @@ class ApplicationController < ActionController::Base
   helper_method :list_tags
   helper_method :tutorial_name
   helper_method :github_connection
+  helper_method :verify_user
 
   add_flash_types :success
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def verify_user(github_id)
+    User.find_by(github_id: github_id)
   end
 
   def current_admin?

@@ -29,7 +29,7 @@ class GithubFacade
       Following.new(following_data)
     end
   end
-
+  
 
   private
 

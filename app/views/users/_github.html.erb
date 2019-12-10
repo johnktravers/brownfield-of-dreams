@@ -13,6 +13,9 @@
   <ul>
     <% github_facade.followers.each do |follower| %>
       <li><%= link_to follower.username, follower.url %></li>
+      <% if verify_user(follower.github_id) %>
+        <%= link_to "Add as a friend", "/add_friend/#{follower.id}" %>
+      <% end %>
     <% end %>
   </ul>
 
@@ -20,6 +23,9 @@
   <ul>
     <% github_facade.followings.each do |following| %>
       <li><%= link_to following.username, following.url %></li>
+      <% if verify_user(follower.github_id) %>
+        <%= link_to "Add as a friend", "/add_friend/#{follower.id}" %>
+      <% end %>
     <% end %>
   </ul>
 </article>

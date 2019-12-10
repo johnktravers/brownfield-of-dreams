@@ -5,8 +5,11 @@ class User < ApplicationRecord
   has_many :videos, through: :user_videos
   has_many :tutorials, through: :videos
 
+  has_many :friendships, inverse_of: :user
+
   validates :email, uniqueness: true, presence: true
   validates_presence_of :first_name, :last_name
+
   enum role: [:default, :admin]
   has_secure_password
 
@@ -14,6 +17,10 @@ class User < ApplicationRecord
 
   def generate_token
     self.activation_token = SecureRandom.hex(10)
+  end
+
+  def add_friend(friend_id)
+    friendships.create
   end
 
   def activate
