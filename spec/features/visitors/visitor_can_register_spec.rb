@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'visitor can create an account' do
-  it ' visits the home page' do
+  it 'visits the home page' do
     VCR.use_cassette('github_user_repos') do
       email = 'jimbob@aol.com'
       first_name = 'Jim'
@@ -32,6 +32,8 @@ describe 'visitor can create an account' do
       expect(page).to have_content(first_name)
       expect(page).to have_content(last_name)
       expect(page).to_not have_content('Sign In')
+      expect(page).to have_content("Logged in as Jim Bob")
+      expect(page).to have_content("This account has not yet been activated. Please check your email.")
     end
   end
 end

@@ -145,5 +145,4 @@ RSpec.describe 'User show page', type: :feature do
       expect(page).to_not have_css(".bookmarked-video")
     end
   end
-
 end
