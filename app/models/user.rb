@@ -20,6 +20,11 @@ class User < ApplicationRecord
     update(active?: true)
   end
 
+  def status
+    return 'Active' if active?
+    'Inactive'
+  end
+
   def update_github(user_info)
     update(
       github_username: user_info['extra']['raw_info']['login'],
