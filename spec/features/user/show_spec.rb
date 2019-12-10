@@ -124,13 +124,25 @@ RSpec.describe 'User show page', type: :feature do
       visit dashboard_path
 
       within "#tutorial-#{tutorial_1.id}" do
-        expect(page).to have_css(".video", count: 3)
+        expect(page).to have_css(".bookmarked-video", count: 3)
         expect(page).to have_link(Video.first.title)
       end
 
       within "#tutorial-#{tutorial_2.id}" do
-        expect(page).to have_css(".video", count: 4)
+        expect(page).to have_css(".bookmarked-video", count: 4)
       end
+    end
+  end
+
+  it "I see that I have no bookmarked videos" do
+    VCR.use_cassette('github_user_data') do
+      user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit dashboard_path
+
+      expect(page).to have_content("You have no bookmarked videos")
+      expect(page).to_not have_css(".bookmarked-video")
     end
   end
 end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     @github_facade = GithubFacade.new(current_user) if github_connection
-    @bookmark_facade = BookmarkFacade.new(current_user)
+    @bookmark_facade = BookmarkFacade.new(current_user) if current_user.user_videos.any?
   end
 
   def new
@@ -9,14 +9,28 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params)
-    if user.save
-      session[:user_id] = user.id
+    @user = User.create(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:success] = "Logged in as #{@user.first_name} #{@user.last_name}"
+      flash[:notice] = "This account has not yet been activated. Please check your email."
+
+      UserMailer.activation(@user).deliver_later
       redirect_to dashboard_path
     else
-      flash[:error] = 'Username already exists'
+      flash[:error] = @user.errors.full_messages.to_sentence
       render :new
     end
+  end
+
+  def update
+    if current_user.activation_token == params[:activation_token]
+      current_user.activate
+      flash[:success] = "Thank you! Your account is now activated."
+    else
+      flash[:alert] = "Your activation token is invalid, please contact support."
+    end
+    redirect_to dashboard_path
   end
 
   private

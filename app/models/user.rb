@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class User < ApplicationRecord
   has_many :user_videos
   has_many :videos, through: :user_videos
@@ -7,6 +9,21 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name
   enum role: [:default, :admin]
   has_secure_password
+
+  after_save :generate_token
+
+  def generate_token
+    self.activation_token = SecureRandom.hex(10)
+  end
+
+  def activate
+    update(active?: true)
+  end
+
+  def status
+    return 'Active' if active?
+    'Inactive'
+  end
 
   def update_github(user_info)
     update(
