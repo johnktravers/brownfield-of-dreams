@@ -14,17 +14,20 @@
   </ul>
   <article>
     <h1>Bookmarked Tutorials</h1>
+    <% if !@bookmark_facade %>
+      <p>You have no bookmarked videos</p>
+    <% else %>
+      <% @bookmark_facade.bookmarks.each do |bookmark| %>
+      <article id="tutorial-<%= bookmark.tutorial_id %>">
 
-    <% @bookmark_facade.bookmarks.each do |bookmark| %>
-    <article id="tutorial-<%= bookmark.tutorial_id %>">
-
-        <h3><%= bookmark.tutorial_title %></h3>
-        <ul>
-          <% bookmark.videos.each do |video| %>
-            <li class="video"><%= link_to video.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{video.id}" %></li>
-          <% end %>
-        </ul>
-    </article>
+          <h3><%= bookmark.tutorial_title %></h3>
+          <ul>
+            <% bookmark.videos.each do |video| %>
+              <li class="bookmarked-video"><%= link_to video.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{video.id}" %></li>
+            <% end %>
+          </ul>
+      </article>
+      <% end %>
     <% end %>
 
   </article>
