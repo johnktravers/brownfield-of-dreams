@@ -13,9 +13,10 @@
   <h3>Followers</h3>
   <ul>
     <% github_facade.followers.each do |follower| %>
-      <li id="follower-id-<%= follower.github_id %>"><%= link_to follower.username, follower.url %>
+      <li id="follower-id-<%= follower.github_id %>">
+        <%= link_to follower.username, follower.url %>
         <% if follower.has_account? && !current_user.has_friend?(follower.user_id) %>
-          | <%= button_to 'Add as Friend', friendships_path(follower.user_id) %>
+          | <%= button_to 'Add as Friend', "/friendships/#{follower.user_id}" %>
         <% end %>
       </li>
     <% end %>
@@ -24,7 +25,12 @@
   <h3>Following</h3>
   <ul>
     <% github_facade.followings.each do |following| %>
-      <li id="following-id-<%= following.github_id %>"><%= link_to following.username, following.url %></li>
+      <li id="following-id-<%= following.github_id %>">
+        <%= link_to following.username, following.url %>
+        <% if following.has_account? && !current_user.has_friend?(following.user_id) %>
+          | <%= button_to 'Add as Friend', "/friendships/#{following.user_id}" %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </article>
