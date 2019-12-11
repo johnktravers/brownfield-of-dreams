@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_admin?
-  helper_method :find_bookmark
   helper_method :list_tags
-  helper_method :tutorial_name
   helper_method :github_connection
 
   add_flash_types :success
@@ -18,14 +16,6 @@ class ApplicationController < ActionController::Base
 
   def github_connection
     current_user.github_id if current_user
-  end
-
-  def find_bookmark(id)
-    current_user.user_videos.find_by(video_id: id)
-  end
-
-  def tutorial_name(id)
-    Tutorial.find(id).title
   end
 
   def four_oh_four
