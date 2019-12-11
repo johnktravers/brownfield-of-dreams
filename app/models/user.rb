@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :tutorials, through: :videos
 
   has_many :friendships
-  has_many :friends, through: :friendships
+  has_many :friends, through: :friendships, foreign_key: 'friend_id'
 
   has_many :inverse_friendships,
             class_name: 'Friendship',
