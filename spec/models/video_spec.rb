@@ -14,4 +14,16 @@ RSpec.describe Video, type: :model do
     it { should validate_presence_of :position }
     it { should validate_numericality_of(:position).only_integer }
   end
+
+  describe 'Instance Methods' do
+    it "Can update video position" do
+      tutorial = create(:tutorial)
+      video    = create(:video, tutorial: tutorial)
+
+      expect(video.position).to eq(0)
+
+      video.update_position(2)
+      expect(video.position).to eq(2)
+    end
+  end
 end

@@ -20,5 +20,30 @@ describe 'Visitor' do
         expect(page).to have_content(tutorial1.description)
       end
     end
+
+    it "Can get started" do
+      visit root_path
+      click_link "Get Started"
+
+      expect(current_path).to eq(get_started_path)
+
+      within ".started-main" do
+        click_link "Register"
+      end
+
+      expect(current_path).to eq(register_path)
+
+      visit get_started_path
+      within ".started-main" do
+        click_link "Sign In"
+      end
+
+      expect(current_path).to eq(login_path)
+
+      visit get_started_path
+
+      click_link "about"
+      expect(current_path).to eq(about_path)
+    end
   end
 end
