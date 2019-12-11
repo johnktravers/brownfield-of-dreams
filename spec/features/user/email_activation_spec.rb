@@ -21,7 +21,7 @@ RSpec.describe 'As a newly registered user', type: :feature do
 
     expect(enqueued_jobs.size).to eq(1)
     expect(enqueued_jobs.first[:args][0]).to eq('UserMailer')
-    expect(enqueued_jobs.first[:args][1]).to eq('activation')
+    expect(enqueued_jobs.first[:args][1]).to eq('activate')
   end
 
   it 'can activate my account by clicking the email link' do
