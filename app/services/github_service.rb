@@ -3,21 +3,25 @@ class GithubService
     @token = token
   end
 
-  def get_user_repos
+  def get_repos
     response = fetch_data('/user/repos')
     parse_data(response)
   end
 
-  def get_user_followers
+  def get_followers
     response = fetch_data('/user/followers')
     parse_data(response)
   end
 
-  def get_user_followings
+  def get_followings
     response = fetch_data('/user/following')
     parse_data(response)
   end
 
+  def get_invitee(github_handle)
+    response = fetch_data("/users/#{github_handle}")
+    parse_data(response)
+  end
 
   private
 
@@ -28,10 +32,10 @@ class GithubService
   end
 
   def fetch_data(url)
-    conn.get(url)
+    connection.get(url)
   end
 
-  def conn
+  def connection
     Faraday.new(url: 'https://api.github.com') do |f|
       f.adapter Faraday.default_adapter
       f.params[:access_token] = token
