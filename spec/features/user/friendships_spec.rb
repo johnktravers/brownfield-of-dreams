@@ -16,14 +16,12 @@ RSpec.describe 'User Friendships' do
 
       visit dashboard_path
 
-      save_and_open_page
-
       within('#follower-id-51488670') do
-        expect(page).to_not have_link('Add as Friend')
+        expect(page).to_not have_button('Add as Friend')
       end
 
       within('#following-id-51488670') do
-        expect(page).to_not have_link('Add as Friend')
+        expect(page).to_not have_button('Add as Friend')
       end
     end
   end
@@ -35,7 +33,7 @@ RSpec.describe 'User Friendships' do
       visit dashboard_path
 
       within('#follower-id-47950816') do
-        click_link('Add as Friend')
+        click_button('Add as Friend')
       end
 
       expect(current_path).to eq(dashboard_path)
