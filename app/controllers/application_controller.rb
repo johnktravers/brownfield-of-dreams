@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :tutorial_name
   helper_method :github_connection
   helper_method :verify_user
+  helper_method :already_friend?
 
   add_flash_types :success
 
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
 
   def verify_user(github_id)
     User.find_by(github_id: github_id)
+  end
+
+  def already_friend?(github_id)
+    current_user.all_friends.any?{|friend| friend.github_id == github_id}
   end
 
   def current_admin?

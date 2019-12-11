@@ -14,9 +14,10 @@
   <ul>
     <% github_facade.followers.each do |follower| %>
       <li><%= link_to follower.username, follower.url %></li>
-      <% if verify_user(follower.github_id) %>
-        <%= link_to "Add as a friend", "/add_friend/#{follower.id}" %>
-      <% end %>
+        <% if verify_user(follower.github_id) && !already_friend?(follower.github_id) %>
+          <% friend = verify_user(follower.github_id) %>
+          <%= button_to "Add as a friend", "/create_friend/#{friend.id}", method: :post %>
+        <% end %>
     <% end %>
   </ul>
 
@@ -24,9 +25,19 @@
   <ul>
     <% github_facade.followings.each do |following| %>
       <li><%= link_to following.username, following.url %></li>
-      <% if verify_user(follower.github_id) %>
-        <%= link_to "Add as a friend", "/add_friend/#{follower.id}" %>
-      <% end %>
+        <% if verify_user(following.github_id) && !already_friend?(following.github_id) %>
+        <% friend = verify_user(following.github_id) %>
+          <%= button_to "Add as a friend", "/create_friend/#{friend.id}", method: :post %>
+        <% end %>
     <% end %>
   </ul>
+
+  <h3>Friends</h3>
+    <ul>
+      <% current_user.all_friends.each do |friend| %>
+      <li>
+        <%= friend.github_username %>
+      </li>
+      <% end %>
+    </ul>
 </article>

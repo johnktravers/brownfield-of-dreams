@@ -38,7 +38,6 @@ class GithubFacade
 
 
   private
-
   attr_reader :user
 
   def service

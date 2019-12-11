@@ -6,6 +6,14 @@ class User < ApplicationRecord
   has_many :tutorials, through: :videos
 
   has_many :friendships, inverse_of: :user
+  has_many :friends, through: :friendships
+
+  has_many :inverse_friendships,
+           class_name: "Friendship",
+           foreign_key: "friend_id"
+  has_many :inverse_friends,
+           through: :inverse_friendships,
+           source: :user
 
   validates :email, uniqueness: true, presence: true
   validates_presence_of :first_name, :last_name
@@ -20,7 +28,14 @@ class User < ApplicationRecord
   end
 
   def add_friend(friend_id)
-    friendships.create
+    friendships.create!(friend_id: friend_id)
+  end
+
+  def all_friends
+    total_friends = []
+    total_friends << friends
+    total_friends << inverse_friends
+    total_friends.uniq.compact.flatten
   end
 
   def activate
