@@ -1,0 +1,7 @@
+<section class="invite">
+  <%= form_for :invite, url: '/invite' do |form| %>
+    <%= form.label 'Github Handle' %>
+    <%= form.text_field :github_handle %>
+    <%= form.submit 'Send Invite' %>
+  <% end %>
+</section>
