@@ -11,31 +11,49 @@
   <h3>Account Status: <strong class="<%= current_user.status.downcase %>"><%= current_user.status %></strong></h3>
   <p><%= 'Please follow the link sent to your email to activate your account.' if !current_user.active? %></p>
 
-  <h3>User Information</h3>
-  <ul>
-    <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
-    <li> <%= current_user.email%> </li>
-  </ul>
-  <article>
+  <section class="user-info">
+    <h3>User Information</h3>
+    <ul>
+      <li>
+        <%= current_user.first_name %> <%= current_user.last_name %>
+      </li>
+      <li>
+        <%= current_user.email %>
+      </li>
+    </ul>
+  </section>
+
+  <section class="friends">
+    <h3>Friends</h3>
+    <ul>
+      <% current_user.all_friends.each do |friend| %>
+        <li>
+          <%= friend.github_username %>
+        </li>
+      <% end %>
+    </ul>
+
+  </section>
+
+  <article class="bookmarks">
     <h1>Bookmarked Tutorials</h1>
     <% if !@bookmark_facade %>
       <p>You have no bookmarked videos</p>
     <% else %>
       <% @bookmark_facade.bookmarks.each do |bookmark| %>
       <article id="tutorial-<%= bookmark.tutorial_id %>">
-
           <h3><%= bookmark.tutorial_title %></h3>
           <ul>
             <% bookmark.videos.each do |video| %>
-              <li class="bookmarked-video"><%= link_to video.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{video.id}" %></li>
+              <li class="bookmarked-video">
+                <%= link_to video.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{video.id}" %>
+              </li>
             <% end %>
           </ul>
       </article>
       <% end %>
     <% end %>
-
   </article>
 
     <%= render partial: "github", locals: { github_facade: @github_facade } if github_connection %>
-
 </section>
