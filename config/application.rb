@@ -32,5 +32,17 @@ module PersonalProject
 
     # Autoload subdirectory of POROS in the models directory
     config.autoload_paths += Dir[Rails.root.join('app', 'models', 'poros')]
+
+    # Configure email sending with SendGrid SMTP
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.sendgrid.net',
+      port:                 '587',
+      domain:               'brownfield-of-dreams-1908.herokuapp.com',
+      user_name:            ENV["SENDGRID_USERNAME"],
+      password:             ENV["SENDGRID_PASSWORD"],
+      authentication:       'plain',
+      enable_starttls_auto: true
+    }
   end
 end

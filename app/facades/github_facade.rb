@@ -4,7 +4,7 @@ class GithubFacade
   end
 
   def repos
-    @raw_repos_data ||= service.get_user_repos
+    @raw_repos_data ||= service.get_repos
 
     repos = []
     @raw_repos_data.each do |repo_data|
@@ -15,7 +15,7 @@ class GithubFacade
   end
 
   def followers
-    @raw_followers_data ||= service.get_user_followers
+    @raw_followers_data ||= service.get_followers
 
     @raw_followers_data.map do |follower_data|
       Follower.new(follower_data)
@@ -23,13 +23,19 @@ class GithubFacade
   end
 
   def followings
-    @raw_followings_data ||= service.get_user_followings
+    @raw_followings_data ||= service.get_followings
 
     @raw_followings_data.map do |following_data|
       Following.new(following_data)
     end
   end
-  
+
+  def invitee(github_handle)
+    @raw_invitee_data ||= service.get_invitee(github_handle)
+
+    Invitee.new(@raw_invitee_data)
+  end
+
 
   private
 
@@ -38,5 +44,4 @@ class GithubFacade
   def service
     GithubService.new(user.github_token)
   end
-
 end

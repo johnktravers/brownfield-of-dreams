@@ -7,7 +7,11 @@
     <%= link_to 'Connect to GitHub', connect_github_path, class: 'btn btn-primary bg-teal' %>
   <% end %>
 
-  <h3>Account Details</h3>
+  <h1>Account Details</h1>
+  <h3>Account Status: <strong class="<%= current_user.status.downcase %>"><%= current_user.status %></strong></h3>
+  <p><%= 'Please follow the link sent to your email to activate your account.' if !current_user.active? %></p>
+
+  <h3>User Information</h3>
   <ul>
     <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
     <li> <%= current_user.email%> </li>
@@ -31,6 +35,6 @@
     <% end %>
   </article>
 
-  <%= render partial: "github", locals: { github_facade: @github_facade } if github_connection %>
+    <%= render partial: "github", locals: { github_facade: @github_facade } if github_connection %>
 
 </section>

@@ -1,0 +1,2 @@
+<h2>Welcome <%= @user.first_name %>! Thanks for signing up for an account at Brownfield.</h2><hr>
+<p>Click this <%= link_to "link", "https://brownfield-of-dreams-1908.herokuapp.com/activate?activation_token=#{@user.activation_token}" %> to activate your account.</p>
