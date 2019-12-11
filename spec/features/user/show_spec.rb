@@ -103,6 +103,16 @@ RSpec.describe 'User show page', type: :feature do
     end
   end
 
+  it 'does not see a friends section if I have no friends' do
+    VCR.use_cassette('github_user_data') do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit dashboard_path
+
+      expect(page).to_not have_css('.friends')
+    end
+  end
+
   it "Can see my bookmarked videos, sorted by tutorial and video position" do
     VCR.use_cassette('github_user_data') do
       tutorial_1 = create(:tutorial)
