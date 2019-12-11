@@ -47,7 +47,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'assigns @user.first_name @user.last_name' do
-      expect(mail.body.encoded).to include(user.first_name + ' ' + user.last_name)
+      expect(mail.body.encoded).to include(user.first_name.capitalize + ' ' + user.last_name.capitalize)
     end
 
     it 'assigns link to register' do
