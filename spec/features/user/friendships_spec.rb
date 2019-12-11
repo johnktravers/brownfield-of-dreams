@@ -23,8 +23,6 @@ RSpec.describe 'User Friendships' do
       within('#following-id-51488670') do
         expect(page).to_not have_button('Add as Friend')
       end
-
-      # Sad path for FriendshipController line #9
     end
   end
 
@@ -48,7 +46,7 @@ RSpec.describe 'User Friendships' do
       @john.reload
 
       within('.friends') do
-        expect(page).to have_content('Jonpatt92')
+        expect(page).to have_selector("a[href='https://github.com/Jonpatt92']")
       end
 
       expect(page).to have_content("Yay, you added #{@jonathan.first_name} #{@jonathan.last_name} as a friend!")
@@ -79,7 +77,7 @@ RSpec.describe 'User Friendships' do
       @john.reload
 
       within('.friends') do
-        expect(page).to have_content('Jonpatt92')
+        expect(page).to have_selector("a[href='https://github.com/Jonpatt92']")
       end
 
       expect(page).to have_content("Yay, you added #{@jonathan.first_name} #{@jonathan.last_name} as a friend!")
