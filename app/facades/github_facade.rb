@@ -20,7 +20,7 @@ class GithubFacade
     @raw_followers_data ||= service.get_followers
 
     @raw_followers_data.map do |follower_data|
-      Follower.new(follower_data)
+      GithubUser.new(follower_data)
     end
   end
 
@@ -28,7 +28,7 @@ class GithubFacade
     @raw_followings_data ||= service.get_followings
 
     @raw_followings_data.map do |following_data|
-      Following.new(following_data)
+      GithubUser.new(following_data)
     end
   end
 
