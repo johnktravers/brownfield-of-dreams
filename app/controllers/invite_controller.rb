@@ -7,7 +7,7 @@ class InviteController < ApplicationController
     invitee = @github_facade.invitee(invite_params[:github_handle])
     if invitee.email && invitee.name
       UserMailer.invite(invitee.email, invitee.name, current_user).deliver_later
-      flash[:success] = "Successfully sent invite!"
+      flash[:success] = 'Successfully sent invite!'
     else
       flash[:notice] = "The Github user you selected doesn't have an email address associated with their account."
     end

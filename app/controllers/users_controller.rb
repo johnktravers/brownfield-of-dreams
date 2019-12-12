@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Logged in as #{@user.first_name} #{@user.last_name}"
-      flash[:notice] = "This account has not yet been activated. Please check your email."
+      flash[:notice] = 'This account has not yet been activated. Please check your email.'
 
       UserMailer.activate(@user).deliver_later
       redirect_to dashboard_path
@@ -26,9 +26,9 @@ class UsersController < ApplicationController
   def update
     if current_user.activation_token == params[:activation_token]
       current_user.activate
-      flash[:success] = "Thank you! Your account is now activated."
+      flash[:success] = 'Thank you! Your account is now activated.'
     else
-      flash[:alert] = "Your activation token is invalid, please contact support."
+      flash[:alert] = 'Your activation token is invalid, please contact support.'
     end
     redirect_to dashboard_path
   end

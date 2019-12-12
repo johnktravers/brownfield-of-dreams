@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
 
@@ -29,8 +29,8 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe '#invite' do
-    let(:invitee_email) { "invitee@example.com" }
-    let(:invitee_name) { "Alan Turing" }
+    let(:invitee_email) { 'invitee@example.com' }
+    let(:invitee_name) { 'Alan Turing' }
     let(:user) { create(:github_user) }
     let(:mail) { described_class.invite(invitee_email, invitee_name, user).deliver_now }
 
@@ -52,7 +52,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'assigns link to register' do
       expect(mail.body.encoded)
-        .to include("https://brownfield-of-dreams-1908.herokuapp.com/register")
+        .to include('https://brownfield-of-dreams-1908.herokuapp.com/register')
     end
   end
 end

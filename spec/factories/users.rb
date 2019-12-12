@@ -12,8 +12,8 @@ FactoryBot.define do
   end
 
   factory :github_user, parent: :user do
-    github_token { ENV["GITHUB_ACCESS_TOKEN"] }
-    github_id { "46035439" }
-    github_username { "johnktravers" }
+    github_token { ENV['GITHUB_ACCESS_TOKEN'] }
+    github_id { '46035439' }
+    github_username { 'johnktravers' }
   end
 end

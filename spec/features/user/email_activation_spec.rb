@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe 'As a newly registered user', type: :feature do
   include ActiveJob::TestHelper

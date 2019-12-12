@@ -86,16 +86,16 @@ RSpec.describe User, type: :model do
 
     it 'update_github' do
       oauth_hash = {
-        "provider"=>"github",
-        "uid"=>"46035439",
-        "credentials"=>{
-          "token"=>ENV["GITHUB_ACCESS_TOKEN"],
-          "expires"=>false
+        'provider'=>'github',
+        'uid'=>'46035439',
+        'credentials'=>{
+          'token'=>ENV['GITHUB_ACCESS_TOKEN'],
+          'expires'=>false
         },
-        "extra"=> {
-          "raw_info"=> {
-            "login"=>"johnktravers",
-            "id"=>46035439
+        'extra'=> {
+          'raw_info'=> {
+            'login'=>'johnktravers',
+            'id'=>46035439
           }
         }
       }
@@ -104,7 +104,7 @@ RSpec.describe User, type: :model do
 
       expect(@user.github_username).to eq('johnktravers')
       expect(@user.github_id).to eq('46035439')
-      expect(@user.github_token).to eq(ENV["GITHUB_ACCESS_TOKEN"])
+      expect(@user.github_token).to eq(ENV['GITHUB_ACCESS_TOKEN'])
     end
 
     it 'bookmark_data' do
@@ -118,18 +118,18 @@ RSpec.describe User, type: :model do
 
       expect(@user.bookmark_data.to_a).to eq([
         {
-          "tutorial_id" => tutorial_1.id,
-          "tutorial_title" => tutorial_1.title,
-          "video_id" => video_1.id,
-          "video_position" => video_1.position,
-          "video_title" => video_1.title
+          'tutorial_id' => tutorial_1.id,
+          'tutorial_title' => tutorial_1.title,
+          'video_id' => video_1.id,
+          'video_position' => video_1.position,
+          'video_title' => video_1.title
         },
        {
-          "tutorial_id" => tutorial_2.id,
-          "tutorial_title" => tutorial_2.title,
-          "video_id" => video_2.id,
-          "video_position" => video_2.position,
-          "video_title" => video_2.title
+          'tutorial_id' => tutorial_2.id,
+          'tutorial_title' => tutorial_2.title,
+          'video_id' => video_2.id,
+          'video_position' => video_2.position,
+          'video_title' => video_2.title
         }])
     end
   end

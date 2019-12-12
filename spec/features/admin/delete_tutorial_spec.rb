@@ -15,8 +15,8 @@ describe 'An Admin can delete a tutorial' do
 
       expect(current_path).to eq(admin_dashboard_path)
       expect(page).to_not have_content(tutorial.title)
-      expect(page).to_not have_link("Edit")
-      expect(page).to_not have_button("Destroy")
+      expect(page).to_not have_link('Edit')
+      expect(page).to_not have_button('Destroy')
       expect(Video.all).to eq([])
     end
   end

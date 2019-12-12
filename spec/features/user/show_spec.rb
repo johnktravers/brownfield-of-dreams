@@ -5,14 +5,14 @@ RSpec.describe 'User show page', type: :feature do
     @user = create(:github_user)
   end
 
-  it "Has a link to authorize Github account if default user" do
+  it 'Has a link to authorize Github account if default user' do
     user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit dashboard_path
 
-    expect(page).to have_link("Connect to GitHub")
-    expect(page).to_not have_css(".github")
+    expect(page).to have_link('Connect to GitHub')
+    expect(page).to_not have_css('.github')
   end
 
   it "Doesn't have a link to authorize Github account if admin user" do
@@ -21,11 +21,11 @@ RSpec.describe 'User show page', type: :feature do
 
     visit dashboard_path
 
-    expect(page).to_not have_link("Connect to GitHub")
-    expect(page).to_not have_css(".github")
+    expect(page).to_not have_link('Connect to GitHub')
+    expect(page).to_not have_css('.github')
   end
 
-  it "can see account details" do
+  it 'can see account details' do
     VCR.use_cassette('github_user_data') do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -68,8 +68,8 @@ RSpec.describe 'User show page', type: :feature do
       visit dashboard_path
 
       followers = {
-        'Jonpatt92' => "https://github.com/Jonpatt92",
-        'mcat56'    => "https://github.com/mcat56"
+        'Jonpatt92' => 'https://github.com/Jonpatt92',
+        'mcat56'    => 'https://github.com/mcat56'
       }
 
       within '.github' do
@@ -113,7 +113,7 @@ RSpec.describe 'User show page', type: :feature do
     end
   end
 
-  it "Can see my bookmarked videos, sorted by tutorial and video position" do
+  it 'Can see my bookmarked videos, sorted by tutorial and video position' do
     VCR.use_cassette('github_user_data') do
       tutorial_1 = create(:tutorial)
       tutorial_2 = create(:tutorial)
@@ -134,25 +134,25 @@ RSpec.describe 'User show page', type: :feature do
       visit dashboard_path
 
       within "#tutorial-#{tutorial_1.id}" do
-        expect(page).to have_css(".bookmarked-video", count: 3)
+        expect(page).to have_css('.bookmarked-video', count: 3)
         expect(page).to have_link(Video.first.title)
       end
 
       within "#tutorial-#{tutorial_2.id}" do
-        expect(page).to have_css(".bookmarked-video", count: 4)
+        expect(page).to have_css('.bookmarked-video', count: 4)
       end
     end
   end
 
-  it "I see that I have no bookmarked videos" do
+  it 'I see that I have no bookmarked videos' do
     VCR.use_cassette('github_user_data') do
       user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit dashboard_path
 
-      expect(page).to have_content("You have no bookmarked videos")
-      expect(page).to_not have_css(".bookmarked-video")
+      expect(page).to have_content('You have no bookmarked videos')
+      expect(page).to_not have_css('.bookmarked-video')
     end
   end
 end
