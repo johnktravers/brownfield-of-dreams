@@ -16,7 +16,7 @@ RSpec.describe Video, type: :model do
   end
 
   describe 'Instance Methods' do
-    it "Can update video position" do
+    it 'Can update video position' do
       tutorial = create(:tutorial)
       video    = create(:video, tutorial: tutorial)
 

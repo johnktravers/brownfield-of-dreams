@@ -12,7 +12,7 @@ class Admin::TutorialsController < Admin::BaseController
 
     if @tutorial.save
       redirect_to tutorial_path(@tutorial.id),
-       success: 'Tutorial was successfully created'
+                  success: 'Tutorial was successfully created'
     else
       flash.now[:error] = @tutorial.errors.full_messages.to_sentence
       render :new

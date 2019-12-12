@@ -5,6 +5,6 @@ module Verifiable
 
   def find_user_id
     user = User.find_by(github_id: github_id)
-    user.id if user
+    user&.id
   end
 end

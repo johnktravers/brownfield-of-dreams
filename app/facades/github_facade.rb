@@ -8,7 +8,9 @@ class GithubFacade
 
     repos = []
     @raw_repos_data.each do |repo_data|
-      repos << Repo.new(repo_data) if repo_data[:owner][:id] == user.github_id.to_i
+      if repo_data[:owner][:id] == user.github_id.to_i
+        repos << Repo.new(repo_data)
+      end
       break if repos.length == 5
     end
     repos
@@ -35,7 +37,6 @@ class GithubFacade
 
     Invitee.new(@raw_invitee_data)
   end
-
 
   private
 

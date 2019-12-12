@@ -38,4 +38,102 @@ RSpec.describe User, type: :model do
       expect(admin.admin?).to be_truthy
     end
   end
+
+  describe 'instance methods' do
+    before :each do
+      @user = create(:user)
+    end
+
+    it 'generate_token' do
+      expect(@user.activation_token.length).to eq(20)
+      expect(@user.activation_token.scan(/\A[a-f0-9]+\Z/i).first)
+        .to eq(@user.activation_token)
+    end
+
+    it 'activate' do
+      @user.activate
+
+      expect(@user.active?).to eq(true)
+    end
+
+    it 'status' do
+      expect(@user.status).to eq('Inactive')
+
+      @user.activate
+
+      expect(@user.status).to eq('Active')
+    end
+
+    it 'all_friends' do
+      user2 = create(:user)
+      user3 = create(:user)
+      user4 = create(:user)
+      create(:friendship, user_id: @user.id, friend_id: user2.id)
+      create(:friendship, user_id: @user.id, friend_id: user3.id)
+      create(:friendship, user_id: user4.id, friend_id: @user.id)
+
+      expect(@user.all_friends).to eq([user2, user3, user4])
+    end
+
+    it 'has_friend?' do
+      expect(@user.has_friend?(12)).to eq(false)
+
+      user2 = create(:user)
+      create(:friendship, user_id: @user.id, friend_id: user2.id)
+
+      expect(@user.has_friend?(user2.id)).to eq(false)
+    end
+
+    it 'update_github' do
+      oauth_hash = {
+        'provider' => 'github',
+        'uid' => '46035439',
+        'credentials' => {
+          'token' => ENV['GITHUB_ACCESS_TOKEN'],
+          'expires' => false
+        },
+        'extra' => {
+          'raw_info' => {
+            'login' => 'johnktravers',
+            'id' => 46_035_439
+          }
+        }
+      }
+
+      @user.update_github(oauth_hash)
+
+      expect(@user.github_username).to eq('johnktravers')
+      expect(@user.github_id).to eq('46035439')
+      expect(@user.github_token).to eq(ENV['GITHUB_ACCESS_TOKEN'])
+    end
+
+    it 'bookmark_data' do
+      tutorial1 = create(:tutorial)
+      video1 = create(:video, tutorial: tutorial1)
+      tutorial2 = create(:tutorial)
+      create_list(:video, 3, tutorial: tutorial2)
+      video2 = create(:video, tutorial: tutorial2)
+      create(:user_video, user: @user, video: video1)
+      create(:user_video, user: @user, video: video2)
+
+      expect(@user.bookmark_data.to_a).to eq(
+        [
+          {
+            'tutorial_id' => tutorial1.id,
+            'tutorial_title' => tutorial1.title,
+            'video_id' => video1.id,
+            'video_position' => video1.position,
+            'video_title' => video1.title
+          },
+          {
+            'tutorial_id' => tutorial2.id,
+            'tutorial_title' => tutorial2.title,
+            'video_id' => video2.id,
+            'video_position' => video2.position,
+            'video_title' => video2.title
+          }
+        ]
+      )
+    end
+  end
 end

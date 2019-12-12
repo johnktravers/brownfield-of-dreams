@@ -21,28 +21,28 @@ describe 'Visitor' do
       end
     end
 
-    it "Can get started" do
+    it 'Can get started' do
       visit root_path
-      click_link "Get Started"
+      click_link 'Get Started'
 
       expect(current_path).to eq(get_started_path)
 
-      within ".started-main" do
-        click_link "Register"
+      within '.started-main' do
+        click_link 'Register'
       end
 
       expect(current_path).to eq(register_path)
 
       visit get_started_path
-      within ".started-main" do
-        click_link "Sign In"
+      within '.started-main' do
+        click_link 'Sign In'
       end
 
       expect(current_path).to eq(login_path)
 
       visit get_started_path
 
-      click_link "about"
+      click_link 'about'
       expect(current_path).to eq(about_path)
     end
   end

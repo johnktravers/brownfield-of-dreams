@@ -6,13 +6,14 @@ describe 'A registered user' do
     create(:video, title: 'The Bunny Ears Technique', tutorial: tutorial)
     user = create(:user)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(user)
 
     visit tutorial_path(tutorial)
 
-    expect {
+    expect do
       click_button 'Bookmark'
-    }.to change { UserVideo.count }.by(1)
+    end.to change { UserVideo.count }.by(1)
 
     expect(page).to have_content('Bookmark added to your dashboard')
   end
@@ -22,7 +23,8 @@ describe 'A registered user' do
     create(:video, tutorial_id: tutorial.id)
     user = create(:user)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(user)
 
     visit tutorial_path(tutorial)
 
@@ -34,9 +36,10 @@ describe 'A registered user' do
 
   it "Tells me when there isn't a tutorial with that id" do
     user = create(:user)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(user)
 
-    visit tutorial_path(3424233)
+    visit tutorial_path(3_424_233)
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content('Tutorial with given ID does not exist.')

@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def github_connection
-    current_user.github_id if current_user
-  end
-
-  def four_oh_four
-    raise ActionController::RoutingError.new('Not Found')
+    current_user&.github_id
   end
 end

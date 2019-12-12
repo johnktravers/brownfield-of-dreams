@@ -4,15 +4,15 @@ RSpec.describe 'User Friendships' do
   before :each do
     @john = create(:github_user)
     @jonathan = create(:user,
-      github_id: '47950816',
-      github_username: 'Jonpatt92',
-      github_token: ENV['JON_GITHUB_TOKEN']
-    )
+                       github_id: '47950816',
+                       github_username: 'Jonpatt92',
+                       github_token: ENV['JON_GITHUB_TOKEN'])
   end
 
-  it 'cannot add a github follower/following friend if they do not have an account' do
+  it 'cannot add a follower/ing friend if they do not have an account' do
     VCR.use_cassette('github_user_data') do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@john)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@john)
 
       visit dashboard_path
 
@@ -49,7 +49,8 @@ RSpec.describe 'User Friendships' do
         expect(page).to have_selector("a[href='https://github.com/Jonpatt92']")
       end
 
-      expect(page).to have_content("Yay, you added #{@jonathan.first_name} #{@jonathan.last_name} as a friend!")
+      expect(page).to have_content("Yay, you added #{@jonathan.first_name} "\
+        "#{@jonathan.last_name} as a friend!")
 
       within('#follower-id-47950816') do
         expect(page).to_not have_button('Add as Friend')
@@ -80,7 +81,8 @@ RSpec.describe 'User Friendships' do
         expect(page).to have_selector("a[href='https://github.com/Jonpatt92']")
       end
 
-      expect(page).to have_content("Yay, you added #{@jonathan.first_name} #{@jonathan.last_name} as a friend!")
+      expect(page).to have_content("Yay, you added #{@jonathan.first_name} "\
+        "#{@jonathan.last_name} as a friend!")
 
       within('#following-id-47950816') do
         expect(page).to_not have_button('Add as Friend')
