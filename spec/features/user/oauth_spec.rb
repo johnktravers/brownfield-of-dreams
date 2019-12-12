@@ -4,16 +4,16 @@ RSpec.describe 'I can authenticate using Oauth' do
   before(:each) do
     OmniAuth.config.test_mode          = true
     OmniAuth.config.mock_auth[:github] =  OmniAuth::AuthHash.new({
-                                            'provider'=>'github',
-                                            'uid'=>'46035439',
-                                            'credentials'=>{
-                                              'token'=>ENV['GITHUB_ACCESS_TOKEN'],
-                                              'expires'=>false
+                                            'provider' => 'github',
+                                            'uid' => '46035439',
+                                            'credentials' => {
+                                              'token' => ENV['GITHUB_ACCESS_TOKEN'],
+                                              'expires' => false
                                             },
-                                            'extra'=> {
-                                              'raw_info'=> {
-                                                'login'=>'johnktravers',
-                                                'id'=>46035439
+                                            'extra' => {
+                                              'raw_info' => {
+                                                'login' => 'johnktravers',
+                                                'id' => 46035439
                                               }
                                             }
                                           })

@@ -69,7 +69,7 @@ RSpec.describe 'User show page', type: :feature do
 
       followers = {
         'Jonpatt92' => 'https://github.com/Jonpatt92',
-        'mcat56'    => 'https://github.com/mcat56'
+        'mcat56' => 'https://github.com/mcat56'
       }
 
       within '.github' do
@@ -90,7 +90,7 @@ RSpec.describe 'User show page', type: :feature do
       visit dashboard_path
 
       following = {
-        'url'      => 'https://github.com/mcat56',
+        'url' => 'https://github.com/mcat56',
         'username' => 'mcat56'
       }
 

@@ -86,16 +86,16 @@ RSpec.describe User, type: :model do
 
     it 'update_github' do
       oauth_hash = {
-        'provider'=>'github',
-        'uid'=>'46035439',
-        'credentials'=>{
-          'token'=>ENV['GITHUB_ACCESS_TOKEN'],
-          'expires'=>false
+        'provider' => 'github',
+        'uid' => '46035439',
+        'credentials' => {
+          'token' => ENV['GITHUB_ACCESS_TOKEN'],
+          'expires' => false
         },
-        'extra'=> {
-          'raw_info'=> {
-            'login'=>'johnktravers',
-            'id'=>46035439
+        'extra' => {
+          'raw_info' => {
+            'login' => 'johnktravers',
+            'id' => 46035439
           }
         }
       }
@@ -124,13 +124,13 @@ RSpec.describe User, type: :model do
           'video_position' => video_1.position,
           'video_title' => video_1.title
         },
-       {
-          'tutorial_id' => tutorial_2.id,
-          'tutorial_title' => tutorial_2.title,
-          'video_id' => video_2.id,
-          'video_position' => video_2.position,
-          'video_title' => video_2.title
-        }])
+        {
+           'tutorial_id' => tutorial_2.id,
+           'tutorial_title' => tutorial_2.title,
+           'video_id' => video_2.id,
+           'video_position' => video_2.position,
+           'video_title' => video_2.title
+         }])
     end
   end
 end
