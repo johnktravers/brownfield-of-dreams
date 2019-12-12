@@ -21,11 +21,12 @@ Rails.application.routes.draw do
   resources :user_videos,       only: [:create, :destroy]
 
   root 'welcome#index'
-  get  'tags/:tag',             to: 'welcome#index', as: :tag
-  get  '/register',             to: 'users#new'
-  get    '/login',              to: 'sessions#new'
-  post   '/login',              to: 'sessions#create'
-  delete '/logout',             to: 'sessions#destroy'
+  get  'tags/:tag',               to: 'welcome#index', as: :tag
+  get  '/register',               to: 'users#new'
+  get    '/login',                to: 'sessions#new'
+  post   '/login',                to: 'sessions#create'
+  delete '/logout',               to: 'sessions#destroy'
+  post '/friendships/:friend_id', to: 'friendships#create'
 
   get '/dashboard',             to: 'users#show'
   get '/activate',              to: 'users#update'
