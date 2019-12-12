@@ -7,11 +7,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/dashboard',           to: 'dashboard#show'
+    get '/dashboard',             to: 'dashboard#show'
 
     resources :videos,          only: [:edit, :update, :destroy]
-    
-    resources :tutorials,       except: [:index, :show] do
+
+    resources :tutorials,     except: [:index, :show] do
       resources :videos,        only: [:create]
     end
   end
@@ -28,12 +28,12 @@ Rails.application.routes.draw do
   delete '/logout',               to: 'sessions#destroy'
   post '/friendships/:friend_id', to: 'friendships#create'
 
-  get '/dashboard',             to: 'users#show'
-  get '/activate',              to: 'users#update'
-  get '/about',                 to: 'about#show'
-  get '/get_started',           to: 'get_started#show'
-  get '/invite',                to: 'invite#new'
-  post '/invite',               to: 'invite#create'
-  get '/auth/github',           as: 'connect_github'
-  get '/auth/github/callback',  to: 'github_connections#create'
+  get '/dashboard',               to: 'users#show'
+  get '/activate',                to: 'users#update'
+  get '/about',                   to: 'about#show'
+  get '/get_started',             to: 'get_started#show'
+  get '/invite',                  to: 'invite#new'
+  post '/invite',                 to: 'invite#create'
+  get '/auth/github',             as: 'connect_github'
+  get '/auth/github/callback',    to: 'github_connections#create'
 end
