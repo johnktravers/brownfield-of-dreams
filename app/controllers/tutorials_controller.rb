@@ -6,13 +6,22 @@ class TutorialsController < ApplicationController
       if !tutorial.classroom || (current_user && tutorial.classroom)
         @facade = TutorialFacade.new(tutorial, params[:video_id])
       else
-        flash[:error] = 'Please login to view classroom content tutorials.'
-        redirect_to root_path
+        classroom_content_error
       end
     else
-      flash[:error] = 'Tutorial with given ID does not exist.'
-      redirect_to root_path
+      tutorial_not_found_error
     end
   end
 
+  private
+
+  def classroom_content_error
+    flash[:error] = 'Please login to view classroom content tutorials.'
+    redirect_to root_path
+  end
+
+  def tutorial_not_found_error
+    flash[:error] = 'Tutorial with given ID does not exist.'
+    redirect_to root_path
+  end
 end

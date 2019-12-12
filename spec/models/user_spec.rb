@@ -65,23 +65,23 @@ RSpec.describe User, type: :model do
     end
 
     it 'all_friends' do
-      user_2 = create(:user)
-      user_3 = create(:user)
-      user_4 = create(:user)
-      create(:friendship, user_id: @user.id, friend_id: user_2.id)
-      create(:friendship, user_id: @user.id, friend_id: user_3.id)
-      create(:friendship, user_id: user_4.id, friend_id: @user.id)
+      user2 = create(:user)
+      user3 = create(:user)
+      user4 = create(:user)
+      create(:friendship, user_id: @user.id, friend_id: user2.id)
+      create(:friendship, user_id: @user.id, friend_id: user3.id)
+      create(:friendship, user_id: user4.id, friend_id: @user.id)
 
-      expect(@user.all_friends).to eq([user_2, user_3, user_4])
+      expect(@user.all_friends).to eq([user2, user3, user4])
     end
 
     it 'has_friend?' do
       expect(@user.has_friend?(12)).to eq(false)
 
-      user_2 = create(:user)
-      create(:friendship, user_id: @user.id, friend_id: user_2.id)
+      user2 = create(:user)
+      create(:friendship, user_id: @user.id, friend_id: user2.id)
 
-      expect(@user.has_friend?(user_2.id)).to eq(false)
+      expect(@user.has_friend?(user2.id)).to eq(false)
     end
 
     it 'update_github' do
@@ -95,7 +95,7 @@ RSpec.describe User, type: :model do
         'extra' => {
           'raw_info' => {
             'login' => 'johnktravers',
-            'id' => 46035439
+            'id' => 46_035_439
           }
         }
       }
@@ -108,29 +108,32 @@ RSpec.describe User, type: :model do
     end
 
     it 'bookmark_data' do
-      tutorial_1 = create(:tutorial)
-      video_1 = create(:video, tutorial: tutorial_1)
-      tutorial_2 = create(:tutorial)
-      create_list(:video, 3, tutorial: tutorial_2)
-      video_2 = create(:video, tutorial: tutorial_2)
-      create(:user_video, user: @user, video: video_1)
-      create(:user_video, user: @user, video: video_2)
+      tutorial1 = create(:tutorial)
+      video1 = create(:video, tutorial: tutorial1)
+      tutorial2 = create(:tutorial)
+      create_list(:video, 3, tutorial: tutorial2)
+      video2 = create(:video, tutorial: tutorial2)
+      create(:user_video, user: @user, video: video1)
+      create(:user_video, user: @user, video: video2)
 
-      expect(@user.bookmark_data.to_a).to eq([
-        {
-          'tutorial_id' => tutorial_1.id,
-          'tutorial_title' => tutorial_1.title,
-          'video_id' => video_1.id,
-          'video_position' => video_1.position,
-          'video_title' => video_1.title
-        },
-        {
-           'tutorial_id' => tutorial_2.id,
-           'tutorial_title' => tutorial_2.title,
-           'video_id' => video_2.id,
-           'video_position' => video_2.position,
-           'video_title' => video_2.title
-         }])
+      expect(@user.bookmark_data.to_a).to eq(
+        [
+          {
+            'tutorial_id' => tutorial1.id,
+            'tutorial_title' => tutorial1.title,
+            'video_id' => video1.id,
+            'video_position' => video1.position,
+            'video_title' => video1.title
+          },
+          {
+            'tutorial_id' => tutorial2.id,
+            'tutorial_title' => tutorial2.title,
+            'video_id' => video2.id,
+            'video_position' => video2.position,
+            'video_title' => video2.title
+          }
+        ]
+      )
     end
   end
 end

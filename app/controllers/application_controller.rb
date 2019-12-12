@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def github_connection
-    current_user.github_id if current_user
+    current_user&.github_id
   end
 end

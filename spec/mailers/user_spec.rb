@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
-
   describe '#activate' do
     let(:user) { create(:user) }
     let(:mail) { described_class.activate(user).deliver_now }
@@ -15,7 +14,8 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['no-reply@brownfield-of-dreams-1908.herokuapp.com'])
+      expect(mail.from)
+        .to eq(['no-reply@brownfield-of-dreams-1908.herokuapp.com'])
     end
 
     it 'assigns @user.first_name' do
@@ -24,7 +24,8 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'assigns @user.activation_token' do
       expect(mail.body.encoded)
-        .to include("https://brownfield-of-dreams-1908.herokuapp.com/activate?activation_token=#{user.activation_token}")
+        .to include('https://brownfield-of-dreams-1908.herokuapp.com/'\
+          "activate?activation_token=#{user.activation_token}")
     end
   end
 
@@ -32,7 +33,9 @@ RSpec.describe UserMailer, type: :mailer do
     let(:invitee_email) { 'invitee@example.com' }
     let(:invitee_name) { 'Alan Turing' }
     let(:user) { create(:github_user) }
-    let(:mail) { described_class.invite(invitee_email, invitee_name, user).deliver_now }
+    let(:mail) do
+      described_class.invite(invitee_email, invitee_name, user).deliver_now
+    end
 
     it 'renders the subject' do
       expect(mail.subject).to eq('Join your friends on Brownfield!')
@@ -43,11 +46,13 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['no-reply@brownfield-of-dreams-1908.herokuapp.com'])
+      expect(mail.from)
+        .to eq(['no-reply@brownfield-of-dreams-1908.herokuapp.com'])
     end
 
     it 'assigns @user.first_name @user.last_name' do
-      expect(mail.body.encoded).to include(user.first_name.capitalize + ' ' + user.last_name.capitalize)
+      expect(mail.body.encoded).to include(user.first_name.capitalize + ' ' +
+        user.last_name.capitalize)
     end
 
     it 'assigns link to register' do

@@ -9,11 +9,11 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships, foreign_key: 'friend_id'
 
   has_many :inverse_friendships,
-            class_name: 'Friendship',
-            foreign_key: 'friend_id'
+           class_name: 'Friendship',
+           foreign_key: 'friend_id'
   has_many :inverse_friends,
-            through: :inverse_friendships,
-            source: :user
+           through: :inverse_friendships,
+           source: :user
 
   validates :email, uniqueness: true, presence: true
   validates_presence_of :first_name, :last_name
@@ -32,6 +32,7 @@ class User < ApplicationRecord
 
   def status
     return 'Active' if active?
+
     'Inactive'
   end
 
@@ -54,7 +55,9 @@ class User < ApplicationRecord
 
   def bookmark_data
     ActiveRecord::Base.connection.execute(
-      "SELECT tutorials.title as tutorial_title, tutorials.id as tutorial_id, videos.title as video_title, videos.position as video_position, videos.id AS video_id
+      "SELECT tutorials.title as tutorial_title, tutorials.id as tutorial_id,
+       videos.title as video_title, videos.position as video_position,
+       videos.id AS video_id
         FROM videos
         INNER JOIN tutorials ON videos.tutorial_id = tutorials.id
         INNER JOIN user_videos ON user_videos.video_id = videos.id

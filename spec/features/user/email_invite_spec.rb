@@ -28,7 +28,6 @@ RSpec.describe 'As a registered user', type: :feature do
 
   it "Tells me when the invited user doesn't have an email" do
     VCR.use_cassette('github_invitation_data_failure') do
-
       visit dashboard_path
 
       click_link 'Send an Invite'
@@ -40,7 +39,8 @@ RSpec.describe 'As a registered user', type: :feature do
 
       expect(enqueued_jobs.size).to eq(0)
       expect(current_path).to eq(dashboard_path)
-      expect(page).to have_content("The Github user you selected doesn't have an email address associated with their account.")
+      expect(page).to have_content("The Github user you selected doesn't "\
+        'have an email address associated with their account.')
     end
   end
 

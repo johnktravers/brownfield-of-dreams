@@ -16,7 +16,8 @@ RSpec.describe 'As a newly registered user', type: :feature do
 
     expect(current_path).to eq(dashboard_path)
     expect(page).to have_content('Logged in as Jane Doe')
-    expect(page).to have_content('This account has not yet been activated. Please check your email.')
+    expect(page).to have_content('This account has not yet been activated. '\
+      'Please check your email.')
     within('.inactive') { expect(page).to have_content('Inactive') }
 
     expect(enqueued_jobs.size).to eq(1)
@@ -49,9 +50,9 @@ RSpec.describe 'As a newly registered user', type: :feature do
     visit '/activate?activation_token=34978y245ybg'
 
     expect(current_path).to eq(dashboard_path)
-    expect(page).to have_content('Your activation token is invalid, please contact support.')
+    expect(page).to have_content('Your activation token is invalid, '\
+      'please contact support.')
     within('.inactive') { expect(page).to have_content('Inactive') }
     expect(user.active?).to eq(false)
   end
-
 end

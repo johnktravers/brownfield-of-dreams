@@ -28,7 +28,6 @@ gem 'omniauth-google-oauth2'
 gem 'will_paginate'
 gem 'yt', '~> 0.29.1'
 
-
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

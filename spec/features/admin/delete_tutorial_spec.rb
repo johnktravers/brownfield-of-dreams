@@ -7,7 +7,8 @@ describe 'An Admin can delete a tutorial' do
   scenario 'Which deletes that tutorials videos' do
     VCR.use_cassette('new_youtube_video') do
       create_list(:video, 3, tutorial: tutorial)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(admin)
 
       visit admin_dashboard_path
 

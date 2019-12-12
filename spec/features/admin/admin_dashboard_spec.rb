@@ -5,7 +5,8 @@ feature 'An admin visiting the admin dashboard' do
     admin = create(:admin)
     create_list(:tutorial, 2)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(admin)
 
     visit admin_dashboard_path
 
@@ -14,7 +15,8 @@ feature 'An admin visiting the admin dashboard' do
 
   it 'cannot be accessed by a user' do
     user = create(:user)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(user)
 
     visit admin_dashboard_path
 

@@ -10,8 +10,6 @@ RSpec.describe YoutubeService, type: :service do
           .to eq([:kind, :etag, :pageInfo, :items])
         expect(service.video_info('WPPPFqsECz0')[:items][0][:snippet][:title])
           .to eq('An Antidote to Dissatisfaction')
-        expect(service.video_info('WPPPFqsECz0')[:items][0][:snippet][:description])
-          .to include('Everybody is familiar with the feeling that things are not as they should be.')
       end
     end
   end

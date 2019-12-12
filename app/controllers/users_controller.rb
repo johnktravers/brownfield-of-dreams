@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   def show
     @github_facade = GithubFacade.new(current_user) if github_connection
-    @bookmark_facade = BookmarkFacade.new(current_user) if current_user.user_videos.any?
+    if current_user.user_videos.any?
+      @bookmark_facade = BookmarkFacade.new(current_user)
+    end
   end
 
   def new
@@ -12,11 +14,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.save
       session[:user_id] = @user.id
-      flash[:success] = "Logged in as #{@user.first_name} #{@user.last_name}"
-      flash[:notice] = 'This account has not yet been activated. Please check your email.'
-
-      UserMailer.activate(@user).deliver_later
-      redirect_to dashboard_path
+      flash_and_send_activation_email(@user)
     else
       flash[:error] = @user.errors.full_messages.to_sentence
       render :new
@@ -28,7 +26,8 @@ class UsersController < ApplicationController
       current_user.activate
       flash[:success] = 'Thank you! Your account is now activated.'
     else
-      flash[:alert] = 'Your activation token is invalid, please contact support.'
+      flash[:alert] = 'Your activation token is invalid, '\
+        'please contact support.'
     end
     redirect_to dashboard_path
   end
@@ -37,5 +36,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
+  end
+
+  def flash_and_send_activation_email(user)
+    flash[:success] = "Logged in as #{user.first_name} #{user.last_name}"
+    flash[:notice] = 'This account has not yet been activated. '\
+      'Please check your email.'
+
+    UserMailer.activate(user).deliver_later
+    redirect_to dashboard_path
   end
 end

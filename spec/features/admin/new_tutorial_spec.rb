@@ -4,7 +4,8 @@ describe 'As an Admin.' do
   let(:admin)    { create(:admin) }
 
   it 'Can create a new tutorial without a video' do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(admin)
 
     visit new_admin_tutorial_path
 
@@ -22,7 +23,8 @@ describe 'As an Admin.' do
   end
 
   it 'Doesnt let me leave fields blank' do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(admin)
 
     visit new_admin_tutorial_path
 
